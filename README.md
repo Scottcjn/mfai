@@ -154,7 +154,7 @@ Currently we support the following neural network architectures:
 
 | Model  | Research Paper  | Input Shape    | ONNX exportable ? | Notes | Use-Cases at MF |
 | :---:   | :---: | :---: | :---: | :---: | :---: |
-|[CLIP](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/models/clip.py#30)| [arxiv link](https://arxiv.org/abs/2103.00020)  | (Batch, token_id) for text, (Batch, Features, Lat, Lon) | No | Usefull to pre-train a Vision Encoder | Marine text product generation |
+|[CLIP](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/models/clip.py#30)| [arxiv link](https://arxiv.org/abs/2103.00020)  | (Batch, token_id) for text, (Batch, Features, Lat, Lon) | No | Useful to pre-train a Vision Encoder | Marine text product generation |
 
 <details>
 <summary>Details about our models</summary>
