@@ -4,7 +4,7 @@
 class mfai.NamedTensor(tensor: Tensor, names: List[str], feature_names: List[str], feature_dim_name: str = "features")
 ```
 
-The [**NamedTensor**](mfai/pytorch/namedtensor.py#L28) class is a wrapper around a PyTorch tensor with additionnal attributes and methods, it allows us to pass consistent object linking data and metadata with extra utility methods (concat along features dimension, flatten in place, ...).
+The [**NamedTensor**](mfai/pytorch/namedtensor.py#L28) class is a wrapper around a PyTorch tensor with additional attributes and methods, it allows us to pass consistent object linking data and metadata with extra utility methods (concat along features dimension, flatten in place, ...).
 
 ## Parameters
 - **tensor (torch.Tensor):** The tensor to wrap.
@@ -30,7 +30,7 @@ The [**NamedTensor**](mfai/pytorch/namedtensor.py#L28) class is a wrapper around
 | Method  | Description  |
 | :---:   | :---: |
 | `clone`() | Clone with a deepcopy. |
-| `collate_fn`(batch, pad_dims, pad_value) | Collates a batch of `NamedTensor` instances into a single `NamedTensor`. Optionnaly padding on the desired dimensions with `pad_value`|
+| `collate_fn`(batch, pad_dims, pad_value) | Collates a batch of `NamedTensor` instances into a single `NamedTensor`. Optionally padding on the desired dimensions with `pad_value`|
 | `concat`(nts) | Concatenates a list of `NamedTensor` instances along the features dimension. |
 | `dim_index`(dim_name) | Return the index of a dimension given its name. |
 | `dim_size`(dim_name) | Returns the size of a dimension given its name. |
