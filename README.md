@@ -3,10 +3,10 @@
 ![Unit Tests](https://github.com/meteofrance/mfai/actions/workflows/tests.yml/badge.svg)
 
 **MFAI** is a Python package that provides the following features:
-- A variety of PyTorch Neural Network architectures (CNN, Vision Transformers, small LLMs, small mulitmodal LMs...) adapted to our needs, tested on our projects and datasets. For each architecture, we provide the reference to the original paper and source code if applicable and also the modifications we made.
+- A variety of PyTorch Neural Network architectures (CNN, Vision Transformers, small LLMs, small multimodal LMs...) adapted to our needs, tested on our projects and datasets. For each architecture, we provide the reference to the original paper and source code if applicable and also the modifications we made.
 - Per architecture schema validated settings using [dataclasses-json](https://github.com/lidatong/dataclasses-json)
 - A NamedTensor class to handle multi-dimensional data with named dimensions and named features (a single containing object for a tensor and its metadata)
-- Various losses from the litterature, often tailored to our projects and experimental results
+- Various losses from the literature, often tailored to our projects and experimental results
 - Lightning module to speedup recurring tasks: segmentation, regression, DGMR training, ... 
 
 # Use Cases
@@ -86,7 +86,7 @@ If you are interested about the technical details of these projects (precise neu
 - [Transforms](#transforms)
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Instanciate a model](#instanciate-a-model)
+    - [Instantiate a model](#instantiate-a-model)
     - [Export to onnx](#export-to-onnx)
     - [NamedTensors](#namedtensors-example)
 - [Running tests](#running-tests)
@@ -108,7 +108,7 @@ Currently we support the following neural network architectures:
 | [HalfUNet](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/models/half_unet.py#L1) | [researchgate link](https://www.researchgate.net/publication/361186968_Half-UNet_A_Simplified_U-Net_Architecture_for_Medical_Image_Segmentation) | (Batch, features, Height, Width)    | Yes | In prod/oper on [Espresso](https://www.mdpi.com/2674-0494/2/4/25) V2 with 128 filters and standard conv blocks instead of ghost | Satellite channels to rain estimation |
 | [UNet](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/models/unet.py#L1) | [arxiv link](https://arxiv.org/pdf/1505.04597.pdf) | (Batch, features, Height, Width)    | Yes | Vanilla U-Net | Radar image cleaning |
 | [CustomUNet](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/models/unet.py#L1) | [arxiv link](https://arxiv.org/pdf/1505.04597.pdf) | (Batch, features, Height, Width)    | Yes | U-Net like architecture with a variety of resnet encoder choices | Radar image cleaning |
-| [custom Resnet50](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/models/resnet.py#L230) | [arxiv link](https://arxiv.org/pdf/1512.03385) | (Batch, features, Height, Width)    | Yes | A slightly customised Resnet50 outputing (batch, num_tokens, embed_dim) for multimodal LM weather/image encoding | Weather + text to text in MLMs |
+| [custom Resnet50](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/models/resnet.py#L230) | [arxiv link](https://arxiv.org/pdf/1512.03385) | (Batch, features, Height, Width)    | Yes | A slightly customised Resnet50 outputting (batch, num_tokens, embed_dim) for multimodal LM weather/image encoding | Weather + text to text in MLMs |
 
 
 ## Vision Transformers
@@ -160,11 +160,11 @@ Currently we support the following neural network architectures:
 <summary>Details about our models</summary>
 
 Except for LLMs and MLLMs, each model we provide is a subclass of [torch.nn.Module](https://pytorch.org/docs/stable/generated/torch.nn.Module.html) and can be used in a PyTorch training loop. It has multiple class attributes to facilitate model usage in a project:
-- **settings_kls**: a class that defines the settings of the model (number of filters, kernel size, ...). It is used to instanciate the model with a specific configuration.
+- **settings_kls**: a class that defines the settings of the model (number of filters, kernel size, ...). It is used to instantiate the model with a specific configuration.
 - **onnx_supported**: a boolean that indicates if the model can be exported to onnx. Our CI validates that the model can be exported to onnx and reloaded for inference.
 - **supported_num_spatial_dims**: a tuple that describes the spatial dimensions of the input tensor supported by the model. A model that supports 2D spatial data will have **(2,)** as value. A model that supports 2d or 3d spatial data will have **(2, 3)** as value.
 - **num_spatial_dims**: an integer that describes the number of spatial dimensions of the input/output tensor expected by the instance of the model, must be a value in **supported_num_spatial_dims**.
-- **settings**: a runtime property returns the settings instance used to instanciate the model.
+- **settings**: a runtime property returns the settings instance used to instantiate the model.
 - **model_type**: an Enum describing the type of model: CONVOLUTIONAL, VISION_TRANSFORMER, GRAPH, LLM, MLLM.
 - **features_last**: a boolean that indicates if the features dimension is the last dimension of the input/output tensor. If False, the features dimension is the second dimension of the input/output tensor.
 - **register**: a boolean that indicates if the model should be registered in the **MODELS** registry. By default, it is set to False which allows the creation of intermediate subclasses not meant for direct use.
@@ -199,7 +199,7 @@ All models can be imported directly from the `mfai.pytorch.models` package. For 
 from mfai.pytorch.models import UNet
 ```
 
-To instanciate a settings class for a model, you can use the `settings_kls` attribute of the model class. For example, to create a settings instance for the HalfUNet model and use it to instanciate the model, you can do:
+To instantiate a settings class for a model, you can use the `settings_kls` attribute of the model class. For example, to create a settings instance for the HalfUNet model and use it to instantiate the model, you can do:
 
 ```python
 from mfai.pytorch.models import HalfUNet
@@ -217,7 +217,7 @@ The module provides:
 - metrics and plot logging with tensorboard
 - logging of configuration and hyperparameters
 - computation of several metrics during validation stage
-- test stage: compute metrics for each sample individualy and save them in CSV file
+- test stage: compute metrics for each sample individually and save them in CSV file
 
 Obviously, if one of the implemented methods, metrics, etc. is not suitable for your problem, it is always possible to overload them so that the lightningmodule adapts to your needs.
 
@@ -241,7 +241,7 @@ class MyProjectLightningModule(SegmentationLightningModule):
 ## Segmentation
 We provide [**SegmentationLightningModule**](https://github.com/meteofrance/mfai/blob/main//mfai/pytorch/lightning_modules/segmentation.py#21) a lightning module adapted to supervised Deep Learning projects where the input of the neural network is made of one or multiple images and the target is also one or multiple images.
 
-The module can be instanciated with any of the aforementioned vision neural networks architetures and used in 4 different modes : binary classification, multiclass classification, multilabel classification and regression.
+The module can be instantiated with any of the aforementioned vision neural networks architectures and used in 4 different modes : binary classification, multiclass classification, multilabel classification and regression.
 
 By default, some metrics are computed in function of the mode of segmentation you use:
 - Binary, Multiclass, Multilabel: [`Accuracy`](https://lightning.ai/docs/torchmetrics/stable/classification/accuracy.html), [`F1Score`](https://lightning.ai/docs/torchmetrics/stable/classification/f1_score.html#torchmetrics.F1Score), [`Recall`](https://lightning.ai/docs/torchmetrics/stable/classification/recall.html), [`Precision`](https://lightning.ai/docs/torchmetrics/stable/classification/precision.html),
@@ -250,7 +250,7 @@ By default, some metrics are computed in function of the mode of segmentation yo
 ## Clip
 We also provide [**CLIPLightningModule**](https://github.com/meteofrance/mfai/blob/main//mfai/pytorch/lightning_modules/clip.py#19), a lightning module dedicated to the training of CLIP models.
 
-This module can be instanciated with a simple [ClipSettings](https://github.com/meteofrance/mfai/blob/main//mfai/pytorch/models/clip.py#19) that informs which image and text encoders to use as well as the embedding size and the initial temperature.
+This module can be instantiated with a simple [ClipSettings](https://github.com/meteofrance/mfai/blob/main//mfai/pytorch/models/clip.py#19) that informs which image and text encoders to use as well as the embedding size and the initial temperature.
 
 ## DGMR
 
@@ -266,7 +266,7 @@ To find an example of how to use it, check out [this repository](https://github.
 
 [Lightning CLI](https://lightning.ai/docs/pytorch/stable/cli/lightning_cli.html#lightning-cli) is a convenient way to easily configure your DL experiments and reduce the number of lines of code in your project.
 
-We provide an example of usage of the Lightning CLI with our lightning module and an exemple of config file to launch an experiment.
+We provide an example of usage of the Lightning CLI with our lightning module and an example of config file to launch an experiment.
 
 # NamedTensors
 
@@ -288,7 +288,7 @@ In addition to metrics available in [**torchmetrics**](https://lightning.ai/docs
 
 Pytorch already provide some Loss like Mean Squared Error (torch.nn.MSELoss) or Mean Absolute Error (torch.nn.L1Loss). Here we add two loss functions that focus on perceptual similarity of tensors and four loss functions used for nowcasting with GANs (DGMR).
 
-We also provide slightly modified losses (DiceLoss, SoftCrossEntropyLoss, SoftBCEWithLogitsLoss) adapted from [pytorch-toolbet](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/losses/toolbelt.py).
+We also provide slightly modified losses (DiceLoss, SoftCrossEntropyLoss, SoftBCEWithLogitsLoss) adapted from [pytorch-toolbelt](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/losses/toolbelt.py).
 
 ## Perceptual Loss
 
@@ -297,7 +297,7 @@ It was introduced by Johnson et al. - Perceptual losses for real-time style tran
 The [**PerceptualLoss**](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/losses/perceptual.py#L28) class is a `torch.nn.Module` that allows to initialize a VGG-16 and compute directly the perceptual loss between a given input and target.
 
 ### Multi Scale :
-The VGG-16 was originally designed for ImageNet dataset that contains 224x224 images. It can still be used with image dimensionned differently. But in case your tensors are high dimensional (ex:1024x1024) the VGG-16 features might not be able to catch fine-scale details. The *multi_scale* mode allows to compute the Perceptual Loss on different downscale version of your original tensors. For example, if your tensors are 1024x1024, the perceptual loss will be computed both on the original dimension and on its downscaled versions : 512x512 and 256x256.
+The VGG-16 was originally designed for ImageNet dataset that contains 224x224 images. It can still be used with image dimensioned differently. But in case your tensors are high dimensional (ex:1024x1024) the VGG-16 features might not be able to catch fine-scale details. The *multi_scale* mode allows to compute the Perceptual Loss on different downscale version of your original tensors. For example, if your tensors are 1024x1024, the perceptual loss will be computed both on the original dimension and on its downscaled versions : 512x512 and 256x256.
 
 ### Channel handling case :
 
@@ -322,7 +322,7 @@ You can either choose to compute the Perceptual Loss with the ImageNet Pre-train
 ## Example
 An example of PerceptualLoss usage :
 ```python
-# In case the target and input are different everytime
+# In case the target and input are different every time
 inputs = torch.rand(25, 5, 128, 128)
 targets = torch.rand(25, 5, 128, 128)
 
@@ -352,11 +352,11 @@ for _ in range():
 
 ## LPIPS
 
-The [**LPIPS**](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/losses/perceptual.py#L28) class is a `torch.nn.Module` that computes the Learned Perceptual Image Patch Similarity metric. It is using the aforementionned PerceptualLoss class so it contains the same modes.
+The [**LPIPS**](https://github.com/meteofrance/mfai/blob/main/mfai/pytorch/losses/perceptual.py#L28) class is a `torch.nn.Module` that computes the Learned Perceptual Image Patch Similarity metric. It is using the aforementioned PerceptualLoss class so it contains the same modes.
 
 ## GANs losses for Nowcasting
 
-We add the Grid Cell Regularizer loss from [Skillful Nowcasting](https://arxiv.org/pdf/2104.00954.pdf), as well as a Nowcating loss, Hinge discriminator loss and Hinge generator loss.
+We add the Grid Cell Regularizer loss from [Skillful Nowcasting](https://arxiv.org/pdf/2104.00954.pdf), as well as a Nowcasting loss, Hinge discriminator loss and Hinge generator loss.
 
 # Transforms
 
@@ -374,7 +374,7 @@ pip install -e .
 
 ## Using pip
 
-You can install using pip trageting the main branch:
+You can install using pip targeting the main branch:
 
 ```bash
 pip install mfai
@@ -402,30 +402,30 @@ pip install mfai[llm]>=7.0.0
 
 # Usage
 
-## Instanciate a model
+## Instantiate a model
 
-Our [unit tests](https://github.com/meteofrance/mfai/blob/main/tests/test_models.py#L39) provides an example of how to use the models in a PyTorch training loop. Our models are instanciated with 2 mandatory positional arguments: **in_channels** and **out_channels** respectively the number of input and output channels/features of the model. A third **input_shape** parameter is either mandatory (**UNETR++** or **HalfUNet with absolute pos embedding**) or optional for the other models. It describes the shape of the input tensor along its spatial dimensions.
+Our [unit tests](https://github.com/meteofrance/mfai/blob/main/tests/test_models.py#L39) provides an example of how to use the models in a PyTorch training loop. Our models are instantiated with 2 mandatory positional arguments: **in_channels** and **out_channels** respectively the number of input and output channels/features of the model. A third **input_shape** parameter is either mandatory (**UNETR++** or **HalfUNet with absolute pos embedding**) or optional for the other models. It describes the shape of the input tensor along its spatial dimensions.
 
 The last parameter is an instance of the model's settings class and is a keyword argument with a default value set to the default settings.
 
 
-Here is an example of how to instanciate the UNet model with a 3 channels input (like an RGB image) and 1 channel output with its default settings:
+Here is an example of how to instantiate the UNet model with a 3 channels input (like an RGB image) and 1 channel output with its default settings:
 
 ```python
 from mfai.pytorch.models import UNet
 unet = UNet(in_channels=3, out_channels=1)
 ```
 
-**_FEATURE:_** Once instanciated, the model (subclass of **nn.Module**) can be used like any standard [PyTorch model](https://pytorch.org/tutorials/beginner/introyt/trainingyt.html).
+**_FEATURE:_** Once instantiated, the model (subclass of **nn.Module**) can be used like any standard [PyTorch model](https://pytorch.org/tutorials/beginner/introyt/trainingyt.html).
 
-In order to instanciate a HalfUNet model with a 2 channels inputs, 2 channels outputs and a custom settings (128 filters, ghost module):
+In order to instantiate a HalfUNet model with a 2 channels inputs, 2 channels outputs and a custom settings (128 filters, ghost module):
 
 ```python
 from mfai.pytorch.models import HalfUNet
 halfunet = HalfUNet(in_channels=2, out_channels=2, settings=HalfUNet.settings_kls(num_filters=128, use_ghost=True))
 ```
 
-Finally, to instanciate a model with the mandatory **input_shape** parameter, here is an example with the UNETR++ model working on 2d spatial data (256x256) with 3 channels input and 1 channel output:
+Finally, to instantiate a model with the mandatory **input_shape** parameter, here is an example with the UNETR++ model working on 2d spatial data (256x256) with 3 channels input and 1 channel output:
 
 ```python
 from mfai.pytorch.models import UNetRPP
@@ -434,7 +434,7 @@ unetrpp = UNetRPP(in_channels=3, out_channels=1, input_shape=(256, 256))
 
 **_FEATURE:_**  Each model has its settings class available under the **settings_kls** attribute.
 
-You can use the **load_from_settings_file** function to instanciate a model with its settings from a json file:
+You can use the **load_from_settings_file** function to instantiate a model with its settings from a json file:
 
 ```python
 from pathlib import Path
@@ -483,7 +483,7 @@ x = torch.randn((1, 1, 64, 64)).float()
 model(x)
 ```
 
-The script `examples/train_oxford_pets.py` provides an example of how to instantiate the ligthning module and the lightning Trainer and use them to train and test a model on the [Oxford-IIIT Pet Dataset](https://www.robots.ox.ac.uk/~vgg/data/pets/).
+The script `examples/train_oxford_pets.py` provides an example of how to instantiate the lightning module and the lightning Trainer and use them to train and test a model on the [Oxford-IIIT Pet Dataset](https://www.robots.ox.ac.uk/~vgg/data/pets/).
 
 You can also look at our unit tests in `tests/test_lightning.py` for example of usage.
 
