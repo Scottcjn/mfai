@@ -161,7 +161,7 @@ def get_resnet_encoder(
         if url is None:
             pretrained = False
             raise KeyError(
-                f"No url is available for the pretrained encoder choosen ({name})."
+                f"No url is available for the pretrained encoder chosen ({name})."
             )
         encoder.load_state_dict(model_zoo.load_url(url))
     else:
