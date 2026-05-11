@@ -72,7 +72,7 @@ If you are interested about the technical details of these projects (precise neu
 - [Lightning CLI](#lightning-cli)
 - [NamedTensors](#namedtensors)
 - [Metrics](#metrics)
-    - Critical Sucess Index
+    - Critical Success Index
     - False Alarm Rate
     - False Negative Rate
     - Precision-Recall Area Under Curve
@@ -279,10 +279,10 @@ You can find the documentation of the NamedTensor class **[here](https://github.
 # Metrics
 
 In addition to metrics available in [**torchmetrics**](https://lightning.ai/docs/torchmetrics/stable/), we implement :
-- Criticall Sucess Index (CSI) is given by: TP / (TP+FP+FN). This metric, usefull in meteorology, takes into account both false alarms and missed events in a neighborhood to avoid the phenomenon of double penalty.
+- Critical Success Index (CSI) is given by: TP / (TP+FP+FN). This metric, useful in meteorology, takes into account both false alarms and missed events in a neighborhood to avoid the phenomenon of double penalty.
 - False Alarm Rate (FAR) is given by: FP / (FP + TP).
 - False Negative Rate (FNR) is given by: FN / (FN + TP).
-- Precision-Recall Area Under the Curve (PR AUC). This metric summarize the overall performance of a model without depending on a threshold. It can be used in place of the Area Under ROC Curve when the dataset is too unbalanced.
+- Precision-Recall Area Under the Curve (PR AUC). This metric summarizes the overall performance of a model without depending on a threshold. It can be used in place of the Area Under ROC Curve when the dataset is too unbalanced.
 
 # Losses
 
