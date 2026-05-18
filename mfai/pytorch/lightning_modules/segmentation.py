@@ -67,7 +67,7 @@ class SegmentationLightningModule(pl.LightningModule):
         return y_hat
 
     def probabilities_to_classes(self, y_hat: Tensor) -> Tensor:
-        """Transfrom probalistics predictions to discrete classes"""
+        """Transform probabilistic predictions to discrete classes"""
         if self.type_segmentation == "multiclass":
             y_hat = y_hat.argmax(dim=1)
         elif self.type_segmentation in ["binary", "multilabel"]:
@@ -207,7 +207,7 @@ class SegmentationLightningModule(pl.LightningModule):
 
     def val_plot_step(self, batch_idx: int, y: Tensor, y_hat: Tensor) -> None:
         """Plots images on first batch of validation and log them in logger.
-        Should be overwrited for each specific project, with matplotlib plots."""
+        Should be overridden for each specific project, with matplotlib plots."""
         if batch_idx == 0:
             tb = self.logger.experiment  # type: ignore[union-attr]
             step = self.current_epoch

@@ -17,7 +17,7 @@ class FAR(Metric):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__()
-        # we do this instead of subclassing because of the way Precision is instanciated
+        # we do this instead of subclassing because of the way Precision is instantiated
         self.p: Metric = Precision(*args, **kwargs)
 
     def update(self, *args: Any, **kwargs: Any) -> None:
@@ -54,7 +54,7 @@ class FNR(Metric):
 
 
 class PR_AUC(Metric):
-    """Area Under the Precsion-Recall Curve."""
+    """Area Under the Precision-Recall Curve."""
 
     def __init__(self, task: Literal["binary", "multiclass", "multilabel"] = "binary"):
         super().__init__()
@@ -71,9 +71,9 @@ class PR_AUC(Metric):
 
 class CSINeighborhood(Metric):
     """
-    Compute Critical Sucess Index (or Threat Score) over a neighborhood to avoid the phenomenon
+    Compute Critical Success Index (or Threat Score) over a neighborhood to avoid the phenomenon
     of double penalty. So a forecast is considered as a true positive if there is a positive
-    observation in the neighborood (define here by the number of neighbors num_ngb) of a positive
+    observation in the neighborhood (defined here by the number of neighbors num_ngb) of a positive
     prediction.
 
     For further information on the CSI:
@@ -182,11 +182,11 @@ class CSINeighborhood(Metric):
             targets = targets.to(device=self.device)
 
         # first step set preds & targets to binary tensor of shape (B,C,H,W)
-        # mutlilabel and binary case: shapes already ok
+        # multilabel and binary case: shapes already ok
         if self.task == "multiclass":
             if preds.shape[1] != 1:
                 raise ValueError(
-                    f"The channel size sould be equal to 1 in multiclass mode. Expect ({preds.shape[0]}, 1, {preds.shape[2]}, {preds.shape[2]}), got {preds.shape[1]}."
+                    f"The channel size should be equal to 1 in multiclass mode. Expect ({preds.shape[0]}, 1, {preds.shape[2]}, {preds.shape[2]}), got {preds.shape[1]}."
                 )
             preds = F.one_hot(preds.long(), num_classes=self.num_classes)
             preds = rearrange(preds, "b 1 h w n_classes -> b n_classes h w")

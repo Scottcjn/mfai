@@ -45,7 +45,7 @@ class PerceptualLoss(torch.nn.Module):
 
         Example :
         ```python
-            # In case the target and input are different everytime
+            # In case the target and input are different every time
             inputs = torch.rand(25, 5, 128, 128)
             targets = torch.rand(25, 5, 128, 128)
 
@@ -64,7 +64,7 @@ class PerceptualLoss(torch.nn.Module):
             self.device = "cpu"
 
         # Iteration over channels for perceptual loss
-        self.channel_iterative_mode = channel_iterative_mode  # whether to iterates over the channel for perceptual loss
+        self.channel_iterative_mode = channel_iterative_mode  # whether to iterate over the channel for perceptual loss
         self.in_channels = in_channels  # Number of input channel for VGG16
         self.pre_trained = pre_trained
         self.resize_input = resize_input
@@ -91,7 +91,7 @@ class PerceptualLoss(torch.nn.Module):
                 self.scaling_factor.append(2**i)
 
         self._set_network()
-        # Keep track of wether or not the model's device has been set
+        # Keep track of whether or not the model's device has been set
         self._set_device = False
 
     def _set_blocks(self) -> list:
@@ -179,7 +179,7 @@ class PerceptualLoss(torch.nn.Module):
                 x = x.repeat(1, 3, 1, 1)
             elif x.shape[1] != 3:
                 raise ValueError(
-                    f"Excpecting input to have 3 channels but it has {x.shape[1]}"
+                    f"Expecting input to have 3 channels but it has {x.shape[1]}"
                 )
         else:
             if x.shape[1] != self.in_channels:
